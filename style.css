@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: rgb(229, 240, 250);
+    background-color: #F9F7F7;
     display:flex;
     justify-content: center;
     height: 100vh;
@@ -22,19 +22,7 @@ body {
     justify-content: space-around;
 }
 
-.pieceHolder {
-   border: solid 1px green;
-}
-
-
-.piece {
-   width: 200px;
-   height: 200px;
-}
-
 .box {
-   width:200px;
-   height: 200px;
    border: solid .5px black;
    cursor: pointer;
 }
@@ -42,15 +30,14 @@ body {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    background-color:blueviolet;
+    background-color: rgb(37, 41, 46);
     color: white;
-    border-radius: 15px;
+    border-radius: 20px;
     font-weight: 500;
+    font-size: 20px;
     letter-spacing: 1px;
-    box-shadow: 0 3px 3px rgb(62, 19, 102);
+    box-shadow: 0 3px 3px rgb(37, 41, 46);
 }
-
-
 
 
 .submit:active {
@@ -63,7 +50,7 @@ body {
     height: 400px;
     display: flex;
     flex-wrap: wrap;
-    background-color: rgb(253, 224, 224);
+    background-color: #3282B8;
 }
 
 .game{
@@ -75,10 +62,97 @@ body {
 
 
 .hovered {
-    background-color: #333;
+    background-color: #1B262C;
     border: dashed 3px white;;
 }
 
 .invisible {
     opacity: 0;
 }
+
+#leftTable .box {
+   background-color: white;
+}
+
+.setup {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%) scale(1);
+   transition: .2s ease-in-out;
+   width: 500px;
+   max-width: 80%;
+   background-color: white;
+   border: double 5px black;
+   border-radius: 10px;
+   z-index: 10;
+   padding: 10px;
+}
+
+.setup.started {
+   transform: translate(-50%, -50%) scale(0);
+}
+
+.setup-header {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 30px;
+   margin: 10px 15px;
+   border-bottom: solid 1px black;
+}
+
+.setup-body {
+   margin: 10px 15px;
+   border-bottom: 1px solid black;
+   padding-bottom: 20px;
+   padding-top: 10px;
+}
+
+#pieceNum {
+   margin: 10px;
+   font-size: 18px;
+   border: solid 1px black;
+   border-radius: 3px;
+   padding: 3px;
+   cursor: pointer;
+}
+
+.setup-footer {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding-bottom: 10px;
+}
+
+#start {
+   border: none;
+   padding: 8px;
+   margin-top: 10px;
+   width: 25%;
+   font-size: 1.25rem;
+   font-weight: bold;
+   color: white;
+   background-color: rgb(119, 83, 177);
+   border-radius: 5px;
+   letter-spacing: 1px;
+   cursor: pointer;
+}
+
+.overlay {
+   position: fixed;
+   transition: .2s ease-in-out;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   opacity: 1;
+   pointer-events: all;
+   background-color: rgba(0,0,0,.5);
+}
+
+.overlay.started {
+   opacity: 0;
+   pointer-events: none;
+}
+

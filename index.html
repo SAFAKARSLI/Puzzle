@@ -6,38 +6,39 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="style.css">
-   <title>Document</title>
+   <title>Puzzle</title>
 </head>
 
 <body>
+   <div class='setup' id='setup'>
+      <div class="setup-header">
+         <div class="title">Game Settings</div>
+      </div>
+      <div class="setup-body">
+         <label>Number Of Pieces:
+            <select name="pieceNum" id="pieceNum">
+               <option value="4">4</option>
+               <option value="9">9</option>
+               <option value="16">16</option>
+               <option value="25">25</option>
+               <option value="36">36</option>
+            </select>
+         </label>
+      </div>
+      <div class="setup-footer">
+         <button id='start'>START</button>
+      </div>
+   </div>
    <div class="container">
       <h1>Puzzle App</h1>
       <div class="game">
-         <div class="image">
-            <div class="box">
-               <div id="piece1" class="piece"></div>
-            </div>
-            <div class="box">
-               <div id="piece2" class="piece"></div>
-            </div>
-            <div class="box">
-               <div id="piece3" class="piece"></div>
-            </div>
-            <div class="box">
-               <div id="piece4" class="piece"></div>
-            </div>
-         </div>
-         <div class="image">
-            <div id='part1' class="box part"></div>
-            <div id='part2' class="box part"></div>
-            <div id='part3' class="box part"></div>
-            <div id='part4' class="box part"></div>
-         </div>
+         <div class="image" id='leftTable'></div>
+         <div class="image" id="rightTable"></div>
       </div>
       <button class="submit">Submit</button>
    </div>
+   <div class="overlay"></div>
    <script src="./script.js"></script>
-   <script src='./route.js'></script>
 </body>
 
 </html>
