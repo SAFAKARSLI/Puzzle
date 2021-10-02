@@ -22,6 +22,16 @@ body {
     justify-content: space-around;
 }
 
+.pieceHolder {
+   border: solid 1px green;
+}
+
+
+.piece {
+   width: 200px;
+   height: 200px;
+}
+
 .box {
    width:200px;
    height: 200px;

@@ -1,18 +1,8 @@
-let piece = document.querySelector('.piece');
 const pieces = document.querySelectorAll('.piece');
 const parts = document.querySelectorAll('.part');
 const submit = document.querySelector('.submit');
 let gameOver = true;
-
-submit.addEventListener('click', () => {
-   for (let i = 0; i < parts.length; i++) {
-      if (pieces[i].style.backgroundPosition !== parts[i].style.backgroundPosition) {
-         gameOver = false;
-      }
-   }
-   checkGame();
-   gameOver = true;
-})
+const answer = [];
 
 function checkGame() {
    if (gameOver) {
@@ -22,47 +12,57 @@ function checkGame() {
    }
 }
 
+
+let flag = 0;
 for (let i = 0; i > -400; i -= 200) {
    for (let j = 0; j > -400; j -= 200) {
-      piece.style.backgroundImage = 'url(https://images.unsplash.com/photo-1631746363756-c4ad7e5bddb0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=400&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTYzMjUxMzA2Nw&ixlib=rb-1.2.1&q=80&w=400)'
+      var piece = pieces[flag]
+      piece.style.backgroundImage = 'url(https://source.unsplash.com/random/400x400)'
       piece.style.backgroundPosition = `${j}px ${i}px`;
       piece.draggable = 'true';
       piece.addEventListener('dragstart', dragStart)
       piece.addEventListener('dragend', dragEnd)
-      piece = piece.nextElementSibling;
+      piece = pieces[flag++]
+
    }
 }
 
 for (let piece of pieces) {
-   piece.draggable = 'true';
+   answer.push(piece.style.backgroundPosition)
 }
 
+submit.addEventListener('click', () => {
+   for (let i = 0; i < parts.length; i++) {
+      if (parts[i].firstChild.style.backgroundPosition !== answer[i]) gameOver = false;
+   }
+   checkGame();
+   gameOver = true;
+})
+
+
 for (let part of parts) {
-   part.addEventListener('dragstart', dragStart)
    part.addEventListener('dragenter', dragEnter)
    part.addEventListener('dragleave', dragLeave)
    part.addEventListener('dragover', dragOver)
    part.addEventListener('drop', dragDrop)
-   part.addEventListener('dragend', dragEnd)
-   part.draggable = 'true';
-
 }
 
 let current = null;
-const images = [];
-
-function loadImage() {
-   console.log(this)
-}
-
+let lastParent = null;
 
 function dragStart() {
-   setTimeout(() => this.classList.add('invisible'), 0)
-   this.removeEventListener('dragstart', () => { })
-   current = this;
+   lastParent = this.parentNode;
+   if (this.classList.contains('piece')) {
+      setTimeout(() => this.parentNode.removeChild(this), 1)
+      current = this;
+   }
 }
 
 function dragEnd() {
+   if (this.parentNode === null) {
+      lastParent.append(this)
+   }
+   lastParent = null;
 
 }
 
@@ -81,9 +81,10 @@ function dragOver(e) {
 
 function dragDrop() {
    this.classList.remove('hovered')
-   console.dir(this)
-   this.style.backgroundImage = current.style.backgroundImage;
-   this.style.backgroundPosition = current.style.backgroundPosition;
+   if (current && this.childElementCount === 0) {
+      this.append(current)
+   }
+   current = null;
 
 }
 
