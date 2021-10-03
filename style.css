@@ -7,10 +7,35 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #F9F7F7;
+    background-color: #f1faee;
     display:flex;
     justify-content: center;
     height: 100vh;
+}
+
+#header {
+   color:#1d3557;
+   font-size: 60px;
+   border-bottom: 2px solid #1d3557;
+}
+
+.timer-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-around;
+}
+
+#timer {
+   font-size: 35px;
+   color:#1d3557;
+   font-weight: bold;
+   letter-spacing: 1px;
+   border: 6px dashed #1d3557;
+   padding: 10px;
+   width: 10rem;
+   display: flex;
+   justify-content: center;
 }
 
 .container{
@@ -27,15 +52,16 @@ body {
    cursor: pointer;
 }
 .submit {
-    padding: 10px 20px;
+    padding: 15px 30px;
     border: none;
     cursor: pointer;
-    background-color: rgb(37, 41, 46);
+    background-color: #1d3557;
+    margin-bottom: 2.4rem;
     color: white;
     border-radius: 20px;
     font-weight: 500;
     font-size: 20px;
-    letter-spacing: 1px;
+    letter-spacing: 3px;
     box-shadow: 0 3px 3px rgb(37, 41, 46);
 }
 
@@ -45,24 +71,33 @@ body {
     transform: translateY(3px)
 }
 
+.helper-image {
+   width: 200px;
+   height: 200px;
+   background-size: 100%;
+   cursor: pointer;
+}
+
+
+
 .image { 
     width: 400px;
     height: 400px;
     display: flex;
     flex-wrap: wrap;
-    background-color: #3282B8;
+    background-color: #1d3557;
 }
 
 .game{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 
 .hovered {
-    background-color: #1B262C;
+    background-color: #1d3557;
     border: dashed 3px white;;
 }
 
@@ -125,7 +160,7 @@ body {
    padding-bottom: 10px;
 }
 
-#start {
+.start {
    border: none;
    padding: 8px;
    margin-top: 10px;
@@ -133,7 +168,7 @@ body {
    font-size: 1.25rem;
    font-weight: bold;
    color: white;
-   background-color: rgb(119, 83, 177);
+   background-color: #1d3557;
    border-radius: 5px;
    letter-spacing: 1px;
    cursor: pointer;
@@ -155,4 +190,32 @@ body {
    opacity: 0;
    pointer-events: none;
 }
+
+#end {
+   position: absolute;
+   transition: 1s ease-in-out;
+   width: 500px;
+   max-width: 80%;
+   background-color: white;
+   top: 50%;
+   left: 50%;
+   opacity: 0;
+   transform: translate(-50%,-50%) scale(0);
+   z-index: 11;
+}
+
+#end.active {
+   transform: translate(-50%,-50%) scale(1);
+   opacity: 1;
+}
+
+#replay {
+   width: 40%;
+   margin-bottom: 20px;
+}
+
+#duration {
+   font-size: 20px;
+}
+
 

@@ -1,17 +1,24 @@
 
 const submit = document.querySelector('.submit');
-let gameOver = true;
+const image = document.querySelector('.helper-image')
+const end = document.querySelector('.end')
+let gameContinues = true;
 const answer = [];
 let pieces = null;
 let parts = null;
 let boxes = null;
+let images = null;
+let leftTable = null;
+let rightTable = null;
 
 // Game Settings Start
 
-const start = document.getElementById('start');
+const start = document.querySelector('.start');
 const pieceNum = document.getElementById('pieceNum')
 const overlay = document.querySelector('.overlay')
 const setup = document.getElementById('setup')
+image.style.backgroundImage = "url(https://source.unsplash.com/random/400x400)";
+
 
 start.addEventListener('click', () => {
    overlay.classList.add('started')
@@ -21,9 +28,9 @@ start.addEventListener('click', () => {
 })
 
 function createElements() {
-   const images = document.querySelectorAll('.image');
-   const leftTable = document.getElementById('leftTable')
-   const rightTable = document.getElementById('rightTable')
+   images = document.querySelectorAll('.image');
+   leftTable = document.getElementById('leftTable')
+   rightTable = document.getElementById('rightTable')
 
    images.forEach(image => {
       for (let i = 0; i < pieceNum.value; i++) {
@@ -55,7 +62,29 @@ function createElements() {
 }
 
 
+function shuffle() {
 
+   const randNumArr = [];
+   let leftTablePieces = [...leftTable.children].map(child => {
+      if (child.firstChild) {
+         return child.firstChild;
+      }
+   }).filter(child => child)
+
+   for (let i = 0; i < leftTablePieces.length; i++) {
+      let rand = Math.floor(Math.random() * leftTablePieces.length);
+      if (!randNumArr.includes(rand)) {
+         randNumArr.push(rand);
+      } else {
+         i--;
+      }
+   }
+
+   const trainsitionArr = [...leftTablePieces].map(piece => piece.style.backgroundPosition)
+   leftTablePieces = leftTablePieces.map((child, index) => {
+      child.style.backgroundPosition = trainsitionArr[randNumArr[index]];
+   })
+}
 
 function gameSetup() {
 
@@ -66,7 +95,7 @@ function gameSetup() {
          var piece = pieces[flag]
          piece.style.width = `${size}px`
          piece.style.height = `${size}px`
-         piece.style.backgroundImage = 'url(https://source.unsplash.com/random/400x400)'
+         piece.style.backgroundImage = `${image.style.backgroundImage}`;
          piece.style.backgroundPosition = `${j}px ${i}px`;
          piece.draggable = 'true';
          piece.addEventListener('dragstart', dragStart)
@@ -79,6 +108,8 @@ function gameSetup() {
       answer.push(piece.style.backgroundPosition)
    }
 
+   shuffle();
+
    for (let box of boxes) {
       box.addEventListener('dragenter', dragEnter)
       box.addEventListener('dragleave', dragLeave)
@@ -86,26 +117,63 @@ function gameSetup() {
       box.addEventListener('drop', dragDrop)
    }
 
+   startTimer();
+}
 
+function getTimer() {
+   return timer.innerText
+}
+
+let intervalId;
+let timer = document.getElementById('timer')
+function startTimer() {
+   let time = timer.innerText.split(':')
+   let min = 0;
+   let sec = 0;
+   intervalId = setInterval(() => {
+      if (sec == 59) {
+         sec = 0;
+         time[1] = '00'
+         min++;
+      } else {
+         sec++
+      }
+      time[0] = time[0].slice(0, -(min.toString().length)) + min.toString();
+      time[1] = time[1].slice(0, -(sec.toString().length)) + sec.toString();
+      timer.innerText = time.join(':')
+   }, 1000)
+}
+
+
+function stopTimer(intervalId) {
+   clearInterval(intervalId);
 }
 
 // Game Settings End
 
-function checkGame() {
-   if (gameOver) {
-      console.log('CONGRATSSS!!!!!')
-   } else {
-      console.log('NOT YET!!!')
+function checkGame(gameContinues) {
+
+   for (let i = 0; i < parts.length; i++) {
+      if (parts[i].firstChild) {
+         if (parts[i].firstChild.style.backgroundPosition != answer[i]) gameContinues = false;
+      } else {
+         gameContinues = false;
+      }
+   }
+   if (gameContinues) {
+      stopTimer(intervalId);
+      overlay.classList.remove('started')
+      end.classList.add('active')
+      document.querySelector('#duration').innerText += getTimer();
    }
 }
 
+document.querySelector('#replay').addEventListener('click', function () { location.reload() });
+
 
 submit.addEventListener('click', () => {
-   for (let i = 0; i < parts.length; i++) {
-      if (parts[i].firstChild.style.backgroundPosition !== answer[i]) gameOver = false;
-   }
-   checkGame();
-   gameOver = true;
+   shuffle();
+   gameContinues = true;
 })
 
 
@@ -126,7 +194,7 @@ function dragEnd() {
       lastParent.append(this)
    }
    lastParent = null;
-
+   checkGame(gameContinues)
 }
 
 function dragEnter(e) {
@@ -148,7 +216,6 @@ function dragDrop() {
       this.append(current)
    }
    current = null;
-
 }
 
 

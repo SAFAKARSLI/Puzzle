@@ -26,16 +26,31 @@
          </label>
       </div>
       <div class="setup-footer">
-         <button id='start'>START</button>
+         <button class='start'>START</button>
       </div>
    </div>
    <div class="container">
-      <h1>Puzzle App</h1>
+      <h1 id='header'>Puzzle App</h1>
       <div class="game">
          <div class="image" id='leftTable'></div>
+         <div class='timer-container'>
+            <div id="timer">00:00</div>
+            <div class="helper-image"></div>
+         </div>
          <div class="image" id="rightTable"></div>
       </div>
-      <button class="submit">Submit</button>
+      <button class="submit">SHUFFLE</button>
+   </div>
+   <div class="end" id="end">
+      <div class="setup-header">
+         <div class='title'>CONGRATULATIONS!!!</div>
+      </div>
+      <div class="setup-body" id='duration'>
+         Duration:&MediumSpace;
+      </div>
+      <div class="setup-footer">
+         <button class="start" id='replay'>Play Again</button>
+      </div>
    </div>
    <div class="overlay"></div>
    <script src="./script.js"></script>
