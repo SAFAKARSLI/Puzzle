@@ -1,6 +1,6 @@
 
 const submit = document.querySelector('.submit');
-const image = document.querySelector('.helper-image')
+const helperImage = document.querySelector('.helper-image')
 const end = document.querySelector('.end')
 let gameContinues = true;
 const answer = [];
@@ -17,15 +17,18 @@ const start = document.querySelector('.start');
 const pieceNum = document.getElementById('pieceNum')
 const overlay = document.querySelector('.overlay')
 const setup = document.getElementById('setup')
-image.style.backgroundImage = "url(https://source.unsplash.com/random/400x400)";
 
 
 start.addEventListener('click', () => {
    overlay.classList.add('started')
    setup.classList.add('started')
    createElements();
-
 })
+
+helperImage.style.backgroundImage = "url(https://source.unsplash.com/random/400x400)";
+helperImage.addEventListener('click', (e) => displayImage(e))
+
+
 
 function createElements() {
    images = document.querySelectorAll('.image');
@@ -41,6 +44,8 @@ function createElements() {
    })
 
    boxes = document.querySelectorAll('.box')
+
+
    boxes.forEach(box => {
       box.style.width = `${400 / Math.pow(pieceNum.value, 0.5)}px`
       box.style.height = `${400 / Math.pow(pieceNum.value, 0.5)}px`
@@ -51,16 +56,22 @@ function createElements() {
       elem.classList.add('piece')
       child.append(elem)
    }
+   pieces = document.querySelectorAll('.piece');
 
    for (let child of rightTable.children) {
       child.classList.add('part')
    }
 
-   pieces = document.querySelectorAll('.piece');
+
    parts = document.querySelectorAll('.part')
    gameSetup();
+
 }
 
+function displayImage(elem) {
+   elem.target.classList.toggle('bigger')
+   overlay.classList.toggle('started')
+}
 
 function shuffle() {
 
@@ -95,7 +106,7 @@ function gameSetup() {
          var piece = pieces[flag]
          piece.style.width = `${size}px`
          piece.style.height = `${size}px`
-         piece.style.backgroundImage = `${image.style.backgroundImage}`;
+         piece.style.backgroundImage = `${helperImage.style.backgroundImage}`;
          piece.style.backgroundPosition = `${j}px ${i}px`;
          piece.draggable = 'true';
          piece.addEventListener('dragstart', dragStart)
@@ -221,4 +232,6 @@ function dragDrop() {
 
 
 
+// Click answer image and display it bigger
+// Double click event for each piece, display bigger
 

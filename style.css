@@ -27,12 +27,12 @@ body {
 }
 
 #timer {
-   font-size: 35px;
+   font-size: 30px;
    color:#1d3557;
    font-weight: bold;
    letter-spacing: 1px;
    border: 6px dashed #1d3557;
-   padding: 10px;
+   padding: 8px;
    width: 10rem;
    display: flex;
    justify-content: center;
@@ -47,9 +47,8 @@ body {
     justify-content: space-around;
 }
 
-.box {
-   border: solid .5px black;
-   cursor: pointer;
+.box.part {
+   border: solid 1px black;
 }
 .submit {
     padding: 15px 30px;
@@ -65,27 +64,68 @@ body {
     box-shadow: 0 3px 3px rgb(37, 41, 46);
 }
 
-
 .submit:active {
     box-shadow: none;
     transform: translateY(3px)
 }
 
+#helper-image-container {
+   width: 200px;
+   height: 200px;
+   overflow: hidden;
+   border-radius: 10px;
+   box-shadow: 0px 0px 15px #000000;
+   transition: .2s;
+}
+
 .helper-image {
    width: 200px;
    height: 200px;
-   background-size: 100%;
+   background-size: cover;
    cursor: pointer;
+   transition: .2s;
+   object-fit: cover;
+}
+
+.helper-image:not(.bigger):hover {
+   transform: scale(1.2);
+}
+#helper-image-container:hover {
+   box-shadow: 0px 0px 15px 3px black;
+
+}
+
+.box:hover .piece {
+   width: 100px;
+   height: 200px;
 }
 
 
+.bigger {
+   transition: none;
+   height: 600px !important;
+   width: 600px !important;
+   z-index: 12;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   cursor: pointer;
+}
+
+.piece {
+   border: solid 1px black;
+   cursor: pointer;
+}
 
 .image { 
-    width: 400px;
-    height: 400px;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #1d3557;
+   width: 400px;
+   height: 400px;
+   display: flex;
+   flex-wrap: wrap;
+   background-color: #1d3557;
+   box-shadow: 0 0 3px black;
+   overflow: hidden;
 }
 
 .game{
@@ -98,7 +138,7 @@ body {
 
 .hovered {
     background-color: #1d3557;
-    border: dashed 3px white;;
+    border: dashed 3px white !important;
 }
 
 .invisible {
@@ -172,18 +212,23 @@ body {
    border-radius: 5px;
    letter-spacing: 1px;
    cursor: pointer;
+   transition: .6s;
+}
+
+.start:hover {
+   background-color: #457b9d;
 }
 
 .overlay {
    position: fixed;
-   transition: .2s ease-in-out;
+   transition: .1s ease-in-out;
    top: 0;
    bottom: 0;
    left: 0;
    right: 0;
    opacity: 1;
    pointer-events: all;
-   background-color: rgba(0,0,0,.5);
+   background-color: rgba(0,0,0,.6);
 }
 
 .overlay.started {
@@ -217,5 +262,7 @@ body {
 #duration {
    font-size: 20px;
 }
+
+
 
 
