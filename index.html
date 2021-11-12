@@ -16,14 +16,33 @@
       </div>
       <div class="setup-body">
          <label>Number Of Pieces:
-            <select name="pieceNum" id="pieceNum">
+            <select name="pieceNum" id="pieceNum" class="drop">
                <option value="4">4</option>
                <option value="9">9</option>
                <option value="16">16</option>
                <option value="25">25</option>
                <option value="36">36</option>
+               <option value="400">400</option>
             </select>
          </label>
+         <div class="timing">
+            <label><b>Time:</b>
+               <select name="timeLimit" id="timeLimit" class="drop">
+                  <option value="1">1 min</option>
+                  <option value="2">2 min</option>
+                  <option value="4">4 min</option>
+                  <option value="6">6 min</option>
+                  <option value="8">8 min</option>
+                  <option value="10">10 min</option>
+                  
+               </select>
+            </label>
+
+            <input type="checkbox" class="check" id="noLimit">
+            <label id='no-limit-label'></label>
+            No Limit
+            </label>
+         </div>
       </div>
       <div class="setup-footer">
          <button class='start'>START</button>
